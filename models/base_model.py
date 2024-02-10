@@ -17,6 +17,9 @@ class BaseModel:
             kwargs: a double pointer to a dictionary
         """
 
+        self.id = str(uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
         if len(kwargs) != 0:
             for k, v in kwargs.items():
                 if k != "__class__":
@@ -24,9 +27,6 @@ class BaseModel:
                         v = datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
                     setattr(self, k, v)
         else:
-            self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
             models.storage.new(self)
 
     def __str__(self):
