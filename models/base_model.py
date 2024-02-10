@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """ Defines a BaseModel """
+import models
 from uuid import uuid4
 from datetime import datetime
-import models
 
 
 class BaseModel:
@@ -20,6 +20,7 @@ class BaseModel:
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
+
         if len(kwargs) != 0:
             for k, v in kwargs.items():
                 if k != "__class__":
@@ -30,7 +31,7 @@ class BaseModel:
             models.storage.new(self)
 
     def __str__(self):
-        """ Print: [<class name>] (<self.id>) <self.__dict__> """
+        """  Returns the string representation of the instance """
 
         cls_name = type(self).__name__
         return "[{}] ({}) {}".format(cls_name, self.id, self.__dict__)
@@ -54,4 +55,5 @@ class BaseModel:
         new["__class__"] = type(self).__name__
         new["created_at"] = self.created_at.isoformat()
         new["updated_at"] = self.updated_at.isoformat()
+
         return new
