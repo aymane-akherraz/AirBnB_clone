@@ -78,6 +78,21 @@ class TestBasemodel(unittest.TestCase):
         self.b.save()
         self.assertGreater(self.b.updated_at, old_dt)
 
+    def test_save_no_args(self):
+        """Tests save() with no arguments."""
+        with self.assertRaises(TypeError) as e:
+            BaseModel.save()
+        msg = "BaseModel.save() missing 1 required positional argument: 'self'"
+        self.assertEqual(str(e.exception), msg)
+
+    def test_save_excess_args(self):
+        """Tests save() with too many arguments."""
+
+        with self.assertRaises(TypeError) as e:
+            BaseModel.save(self, 98)
+        msg = "BaseModel.save() takes 1 positional argument but 2 were given"
+        self.assertEqual(str(e.exception), msg)
+
 
 if __name__ == '__main__':
     unittest.main()
