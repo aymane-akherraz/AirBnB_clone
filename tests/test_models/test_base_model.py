@@ -84,6 +84,12 @@ class TestBasemodel(unittest.TestCase):
         with self.assertRaises(TypeError) as e:
             BaseModel.save()
 
+    def test_save_with_multiple_args(self):
+        """Tests save with multiple arguments"""
+
+        with self.assertRaises(TypeError) as e:
+            BaseModel.save(self, 98)
+
 
 if __name__ == '__main__':
     unittest.main()
