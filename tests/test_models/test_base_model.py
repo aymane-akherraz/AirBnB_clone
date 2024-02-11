@@ -78,6 +78,12 @@ class TestBasemodel(unittest.TestCase):
         self.b.save()
         self.assertGreater(self.b.updated_at, old_dt)
 
+    def test_save_with_no_args(self):
+        """Tests save with no arguments"""
+
+        with self.assertRaises(TypeError) as e:
+            BaseModel.save()
+
 
 if __name__ == '__main__':
     unittest.main()
