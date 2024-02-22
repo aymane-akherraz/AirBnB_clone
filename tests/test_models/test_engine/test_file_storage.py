@@ -45,8 +45,7 @@ class TestFilestorage(unittest.TestCase):
     def test_all(self):
         """ Test for the all method """
 
-        my_dict = models.storage.all()
-        self.assertIsInstance(my_dict, dict)
+        self.assertEqual(dict, type(models.storage.all()))
 
     def test_all_with_arg(self):
         """ Test for the all method with one None """
@@ -115,6 +114,13 @@ class TestFilestorage(unittest.TestCase):
 
         for k in my_list:
             self.assertIn(k, FileStorage._FileStorage__objects.keys())
+
+        def test_reload_with_arg(self):
+            with self.assertRaises(TypeError):
+                models.storage.reload(None)
+
+        def test_reload_no_file(self):
+        self.assertRaises(FileNotFoundError, models.storage.reload())
 
         def test_reload_with_arg(self):
             with self.assertRaises(TypeError):
